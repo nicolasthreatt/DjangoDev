@@ -1,0 +1,29 @@
+Django is a popular webframe build on python that allows one to maintain web application
+
+Install Django
+    - pip install django
+
+Creating a Django Project
+    - Naviage to preferred directory
+    - run command 'django-admin.py startproject projectname'
+
+Start an App
+    - run command 'django-admin startapp AppName'
+
+Build an App
+    - Run command 'python manage.py startapp appname'
+    - Creates the following file in working directory 'db.sqllite3'
+
+Run Django Project
+    - run command 'python manage.py runserver'
+    - In a broswer visit:
+        a. localhost:8000
+
+Django Apps
+    - An app is a folder with Python files
+    - Within Django, an app is a component
+    - Each app fits a specific purpose
+    - Example
+        a. Blog
+        b. Form
+        c. Wiki

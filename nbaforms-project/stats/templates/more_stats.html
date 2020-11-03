@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block 'body' %}
+
+<div class="contain">
+    <h1>Request more stats</h1>
+    <h2>{{ note }}</h2>
+
+    <form action="{% url 'more_stats' %}" method="post">
+        {% csrf_token %}
+        {{ formset.management_form }}
+
+        {% for form in formset %}
+        {{ form }}
+        <br><br>
+        {% endfor %}
+
+        <input type="submit" value="Get Stats">
+    </form>
+</div>
+
+{% endblock %}

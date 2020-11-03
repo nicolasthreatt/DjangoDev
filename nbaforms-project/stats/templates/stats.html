@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block 'body' %}
+
+{% load widget_tweaks %}
+
+<div class="contain">
+
+    <h1>Request a Stat</h1>
+    <h2>{{ note }}</h2>
+
+    {% if created_stat_pk  %}
+    <a href="{% url 'edit_stat' created_stat_pk %}">Edit Your Stat</a>
+    {% endif %}
+
+    <!-- Create a HTML Form -->
+    <form action="{% url 'stats' %}" method="post" novalidate>
+        <!-- method="get" -->
+        {% csrf_token %}
+        <!-- method="post" -->
+
+        {% for field in statform %}
+        <div class="form-group">
+            {{ field.errors }}
+            {{ field.label_tag }}
+            {% render_field field class="form-control" %}
+        </div>
+        {% endfor %}
+
+        <!-- ------ Form Rendering ------- -->
+
+        <!-- Paragraph Form
+                    {{ statform.as_p }} -->
+
+        <!-- Table Form
+                        <table> 
+                            {{ statform.as_table }}
+                        </table> -->
+
+        <!-- List Form
+                            <ol>
+                                {{ statform.as_ul }}
+                            </ol> -->
+
+        <!-- ------ Form Customizing ------- -->
+        <!-- {{ statform.player.label_tag }}
+                                {{ statform.player }}
+                                {{ statform.player.errors }}
+                                <br><br><br><br>
+                                <label for="{{ statform.stat.id_for_label }}">Stat </label>
+                                {{ statform.stat }}
+                                {{ statform.player.errors }} -->
+        <input type="submit" value="Request Stat">
+    </form>
+    <br><br>
+    Want more stats?
+    <form action="{% url 'more_stats' %}" method="get">
+        {{ multiple_form }}
+        <input type="submit" value="Get Stats">
+    </form>
+</div>
+
+{% endblock %}

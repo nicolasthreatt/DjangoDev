@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block 'body' %}
+
+<div class="contain">
+    <h1>Edit Stat</h1>
+    <h2>{{ note }}</h2>
+
+    <form action="{% url 'edit_stat' stat.id %}" method="post">
+        <!-- method="get" -->
+        {% csrf_token %}
+        <!-- method="post" -->
+        {{ statform }}
+        <input type="submit" value="Edit Stat">
+    </form>
+</div>
+
+{% endblock %}

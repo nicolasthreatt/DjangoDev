@@ -1,0 +1,27 @@
+<!-- 
+    For more information about the following HTML tags, visit:
+    - <div>
+        https://www.w3schools.com/tags/tag_div.ASP 
+    - <h#>
+        https://www.w3schools.com/tags/tag_hn.asp
+    - <a>
+        https://www.w3schools.com/tags/tag_a.asp
+    - <p>
+        https://www.w3schools.com/tags/tag_p.asp
+-->
+{% extends "base.html" %}
+{% block content %}
+<div>
+    {% for player in players %}
+        <div class="playername">
+            <a href="{% url 'player_detail' player.id %}">
+                <h3>{{ player.name|capfirst }}</h3>
+            </a>
+            <p>Team: {{ player.team }}</p>
+            {% if player.jersey_num %}
+                <p>Jersey Number: {{ player.jersey_num }}</p>
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

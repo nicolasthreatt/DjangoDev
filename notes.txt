@@ -1,0 +1,138 @@
+Django WebFrame Notes
+    1. wsgi.py
+        a. Provides a hook for webservers
+    2. settings.py
+        a. Configures Django App
+    3. URL Patterns (appdir/url.py)
+        a. When a Django application receives a web request it uses URL patterns to decide
+            which view to pass the request to for handling
+        b. URL routing
+        c. Defines the HTTP responses that are returned
+        d. Routes requests based on URL
+    4. Views
+        a. Provides logic or control folow
+            -> View is a Python callable, such as a function, that takes a http request as an argument and
+                return HTTPS response
+        c. appdir/views.py
+    5. Templates
+        a. Presentation layer of what the HTTPS response will look like
+            -> Each template is a seperate file that consists of HTML along with extra template
+                syntax such as variales, loops, and other control flow
+        b. appdir/templates/
+    6. Models (appdir/moedels.py)
+        a. Data layer
+        b. Class with attributes that defiens a schema or underlying structure of a database table
+            -> Classes with provide built in methods for making queries on the associated table
+            -> Create the data alyer of an app
+            -> Define database structure
+            -> Allows to query the database
+            -> Example Code Snippet
+                from django.db import models
+                class Item(models.Model):
+                    title       = models.CharField(max_length=200)
+                    description = models.TextField()
+                    ammount     = models.IntegerField()
+        c. Define the structure of database tables
+        d. When a new model is defined, the initial migration will create the corresponding databae tables
+    7. Migration (migrations/)
+        a. Holds migration files
+        b. Generate scripts to change the databse structure
+        c. Commands
+            -> python manage.py makemigration
+                + Generates migrations files for later use
+                + Uses current model fields and current database 
+                + Creates numberd files in appname/migrations/
+            -> python manage.py migrate
+                + Runs all migrations that haven't been run yet
+                + Can also run migrations for an app to a specific number using 'migrate <appname> <number>'
+    8. Admin (admin.py)
+        a. Administrative interface
+    9. Test (appdir/test.py)
+        a. Tests the app
+
+Django Field Types
+    - Numeric Data
+        a. IntegerField()
+            -> -1, 0, 1, 20
+        b. DecimalField(max_digits= , decimal_places= )
+            -> 0.5, 3.14
+    - Textual Data
+        a. CharField(max_length= )
+            -> "Short String Here"
+                i. Requires max_length=size
+            -> models.CharField(max_length=TextSize, null=True, blank=True)
+        b. TextField 
+            -> "Longer String Here"
+                i. Unbounded
+        c. EmailField
+            -> email@domain.com
+        d. URLField
+            -> www.urlhere.com
+    - Miscellaneous Data
+        a. Boolean Field
+            -> True, False
+        b. DateTimeField
+            -> datetime(year, month, day, hour, minute, second, microsecond)
+    - Relational Data
+        a. ForeignKey
+            -> Relates a databse table of one model to another model
+            -> 1 (id of another table)
+        b. ManyToMany
+            -> Relate a given record to many models
+            -> NA
+
+Django Field Attributes
+    - max_length
+        a. Should be set equal to the text size
+    - null
+        a. True if attribute can be null
+    - blank
+        a. True if attribute is not required
+    - choices
+        a. Limits the values that can be stored in the field to set of chocies
+    - default
+        a. Set to a default value
+
+Rows x Columns = Record x Field
+
+Create Admin Profile
+    - python manage.py createsuperuser
+        a. username
+        b. password
+        
+Query Data With the Django ORM
+    1. Open Django Python Shell
+        a. python manage.py shell
+    2. Get all class objects
+        b. AllData = ClassName.objects.all()
+    3. Get specific object info - VERSION 1
+        c. Data = AllData[INTEGER_INDEX]
+            i.  Data.field1 
+            ii. Data.field2
+    4. Get specific object info - VERSION 2
+        d. data = ClassName.objects.get(id=INTEGER_INDEX)
+
+URL Patterns Example
+    from django.confs.urls import url
+    from adoptions import views
+    urlpatterns = [
+        url(r'^$', views.home, name='index'),
+    ]
+
+Adding Static Images
+    1. Create directory in project called 'static' to store Images
+    2. In settings.py add the following
+            STATIC_URL  = '/static/'
+            STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+    3. In urls.py add the following
+            urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    4. Run command:
+        - python manage.py collectstatic
+            a. Create a new top-level 'static' directory
+
+Adding Media Attachements (Music, videos, etc.)
+    1. In settings.py add the following
+            MEDIA_URL  = '/media/'
+            MEDIA_ROOT = BASE_DIR
+    2. In urls.py add the following
+            urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

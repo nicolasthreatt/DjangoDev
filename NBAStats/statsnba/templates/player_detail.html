@@ -1,0 +1,58 @@
+<!-- 
+    For more information about the following HTML tags, visit:
+    - <div>
+        https://www.w3schools.com/tags/tag_div.ASP 
+    - <h#>
+        https://www.w3schools.com/tags/tag_hn.asp
+    - <a>
+        https://www.w3schools.com/tags/tag_a.asp
+    - <p>
+        https://www.w3schools.com/tags/tag_p.asp
+-->
+
+{% extends "base.html" %}
+{% block content %}
+<div>
+    <h3>{{ player.name|capfirst }}</h3>
+
+    <p>Team: {{ player.team }}</p>
+
+    {% if player.jersey_num %}
+        <p>Jersey Number: {{ player.jersey_num }}</p>
+    {% endif %}
+
+    {% if player.ppg %}
+        <p>PPG: {{ player.ppg }}</p>
+    {% endif %}
+
+    {% if player.fg_p %}
+        <p>FG%: {{ player.fg_p }}</p>
+    {% endif %}
+
+    {% if player.tp_p %}
+        <p>3P%: {{ player.tp_p }}</p>
+    {% endif %}
+
+    {% if player.reb %}
+        <p>Reb: {{ player.reb }}</p>
+    {% endif %}
+
+    {% if player.ast %}
+        <p>Ast: {{ player.ast }}</p>
+    {% endif %}
+
+    <!-- {% if player.skills.all %}
+        <p>Skills for:</p>
+        <ul>
+            {% for skill in player.skills.all %}
+                <li>{{ skill.name }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %} -->
+
+    <p>Updated on: {{ player.date|date:"M d, Y" }}</p>
+
+    <!-- <p>{{ player.description }}</p> -->
+
+</div>
+{% endblock %} 
